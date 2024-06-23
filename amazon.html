@@ -58,6 +58,8 @@
       </div>
     </div>
 
+    <!--******************* IMP: CHECK COMMENTs *******************-->
+    <script src="data/products.js" ></script><!--this folder contents will also be available to the other files that are linked to this HTML file. for example the Product variable is being accessed by the js file below(src="../scripts/amazon.js") you can assume that this attached file's code is written here instead of linking and same for the below linked file.And yes the Order matters for example replacing both the files (this and below one) will not work because the lower linked file searches for the variable which is not declared and initialized yet. Although hoisting provides the declaration of variable but still without initializing if we access content it'll give error.-->
     <script src="../scripts/amazon.js"></script>
   </body>
 </html>
