@@ -57,10 +57,9 @@
         
       </div>
     </div>
-
-    <script src="data/cart.js"></script>
+  <!-- <script src = "data/cart.js"></script> -->
     <!--******************* IMP: CHECK COMMENTs *******************-->
-    <script src="data/products.js" ></script><!--this folder contents will also be available to the other files that are linked to this HTML file. for example the Product variable is being accessed by the js file below(src="../scripts/amazon.js") you can assume that this attached file's code is written here instead of linking and same for the below linked file.And yes the Order matters for example replacing both the files (this and below one) will not work because the lower linked file searches for the variable which is not declared and initialized yet. Although hoisting provides the declaration of variable but still without initializing if we access content it'll give error.-->
-    <script src="../scripts/amazon.js"></script>
+    <script src="data/products.js" ></script><!--this folder contents will also be available to the other files that are linked to this HTML file. for example the Product variable is being accessed by the js file below(src="../scripts/amazon.js") you can assume that this attached file's code is written here instead of linking and same for the below linked file.And yes the Order matters for example replacing both the files (this and below one) will not work because the lower linked file searches for the variable which is not declared and initialized yet. Although hoisting provides the declaration of variable but still without initializing if we access content it'll give error. -->
+    <script type="module" src="../scripts/amazon.js"></script><!--the module thing allows us to avoid naming conflicts. for example we were accessing a variable named "cart" which were inside cart.js folder which we were accessing using script. but this allows us to easily create variable which are already created and gives error in  console. to avoid this we import the variable from the module in three steps: first add the html attribute "type= "module"" to the file which are importing that variable. then export the variable from that file using "export const cart = []" and import in the file u want using "import {cart} from 'path'(path in single quotes)" two more things to know about modules: put all the imports on the top of the file, and in order to use module we need to use live server. module also allows to not worry about the order of files -->
   </body>
 </html>
