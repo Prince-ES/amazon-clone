@@ -1,6 +1,8 @@
 import {cart, addToCart} from '../data/cart.js';
 import { products } from '../data/products.js';
-
+//other syntax of import:-
+//import = as cartModule(userDefined) from 'path'; now we can import all the variable just with this.
+//to access those variables use: cartModule.variableName
 
 let productsHTML = '';
 products.forEach((product) => {
