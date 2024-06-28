@@ -1,5 +1,6 @@
 import {cart, addToCart} from '../data/cart.js';
 import { products } from '../data/products.js';
+import { formatCurrency } from './utils/money.js';//in modules if we have to go from current folder to a folder beside it we have to use "./" which is not necessary in general.
 //other syntax of import:-
 //import = as cartModule(userDefined) from 'path'; now we can import all the variable just with this.
 //to access those variables use: cartModule.variableName
@@ -26,7 +27,7 @@ products.forEach((product) => {
       </div>
 
       <div class="product-price">
-        $${(product.priceCents/100).toFixed(2)}<!--this "toFixed() function ensures the no. of decimal places in the brackets-->
+        $${formatCurrency(product.priceCents)}<!--//the code is been changed//this "toFixed() function ensures the no. of decimal places in the brackets-->
       </div>
 
       <div class="product-quantity-container">
