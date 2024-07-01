@@ -9,6 +9,7 @@ const deliveryDate = today.add(7,'days');//this .add method will take two input.
 //console.log(deliveryDate);//this will print an object which will have the day after 7 place from today ex(today = sunday then the output will be sunday as today is included.)
 console.log(deliveryDate.format('dddd, MMMM D'));//the format is specified in the documentation. dddd will tell days name(full) then MMMM ( months full name) then D (1-31);
 
+function renderOrderSummary(){
 let cartSummaryHTML = '';
 
 cart.forEach((cartItem)=>{
@@ -123,5 +124,8 @@ document.querySelectorAll('.js-delete-link')
     element.addEventListener('click',()=>{
       const {productId,deliveryOptionId} = element.dataset;
       updateDeliveryOption(productId,deliveryOptionId);
+      renderOrderSummary();
     });
   });
+}
+renderOrderSummary();
