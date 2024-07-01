@@ -44,3 +44,17 @@ cart.forEach((cartItem) =>{
 cart = newCart;
 saveToStorage();
 }
+
+export function updateDeliveryOption(productId,deliveryOptionId) {
+  let matchingItem;
+
+  cart.forEach((cartItem) => {
+    if(productId === cartItem.productId){
+      matchingItem = cartItem;
+    }
+  });
+  
+  matchingItem.deliveryOptionId = deliveryOptionId;//the parameter "deliveryOptoinId" has the sama name as the property in matchingItem(a cart's item's property) but its working fine.
+
+  saveToStorage();
+}

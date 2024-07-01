@@ -71,6 +71,11 @@ document.querySelector('.js-products-grid').innerHTML = productsHTML;
     })
     document.querySelector('.js-cart-quantity').innerHTML = cartQuantity;
   }
+  let cartQuantity = 0;
+  cart.forEach((cartItem)=> {
+    cartQuantity += cartItem.quantity;
+  })
+  document.querySelector('.js-cart-quantity').innerHTML = cartQuantity;
 
 document.querySelectorAll('.js-add-to-cart')//this is going to pass all the elements with this class and each of the element(button here) will get this addEventListener property.
   .forEach((button)=> {
