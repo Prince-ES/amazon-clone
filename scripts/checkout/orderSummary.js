@@ -1,9 +1,10 @@
 import {cart,removeFromCart,updateDeliveryOption} from '../../data/cart.js';
-import {products} from '../../data/products.js';
+import {products,getProduct} from '../../data/products.js';
 import { formatCurrency } from '../utils/money.js';
 
 import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js';//another syntax for exporting(while exporting the from the site, they have used this syntax for exporting so we also have to import from same syntax. their way of exporting: export default dayjs;. we can use it when we only want to export 1 thing. only one default export can be done from a file.
 import {deliveryOptions} from '../../data/delivery-options.js';
+import {getDeliveryOption} from '../../data/delivery-options.js'
 const today = dayjs();//this will give an object which contains today's date.
 const deliveryDate = today.add(7,'days');//this .add method will take two input. the first tells from which no. to increas and the 2nd which is a string tells what to increase.
 //console.log(deliveryDate);//this will print an object which will have the day after 7 place from today ex(today = sunday then the output will be sunday as today is included.)
@@ -15,24 +16,17 @@ let cartSummaryHTML = '';
 cart.forEach((cartItem)=>{
   const productId = cartItem.productId;
 
-  let matchingProduct;
+  const matchingProduct = getProduct(productId);
 
-  products.forEach((product)=>{
-    if(product.id === productId){
-      matchingProduct = product;
-    }
-  });
+
   const Today = dayjs();
-  let calcDays = '';
-  deliveryOptions.forEach((deliveryOption)=>{
-    if(deliveryOption.id === cartItem.deliveryOptionId){
-      calcDays = deliveryOption.deliverydays;
-    }
-  })
+
+  const deliveryOption = getDeliveryOption(cartItem.deliveryOptionId);
+  
   cartSummaryHTML +=`
     <div class="cart-item-container js-cart-item-container-${matchingProduct.id}">
       <div class="delivery-date">
-        Delivery date: ${(Today.add(calcDays,'days')).format('dddd, MMMM D')}
+        Delivery date: ${(Today.add(deliveryOption.deliverydays,'days')).format('dddd, MMMM D')}
       </div>
 
       <div class="cart-item-details-grid">
