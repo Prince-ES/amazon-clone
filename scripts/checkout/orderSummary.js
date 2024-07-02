@@ -4,11 +4,12 @@ import { formatCurrency } from '../utils/money.js';
 
 import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js';//another syntax for exporting(while exporting the from the site, they have used this syntax for exporting so we also have to import from same syntax. their way of exporting: export default dayjs;. we can use it when we only want to export 1 thing. only one default export can be done from a file.
 import {deliveryOptions} from '../../data/delivery-options.js';
-import {getDeliveryOption} from '../../data/delivery-options.js'
-const today = dayjs();//this will give an object which contains today's date.
-const deliveryDate = today.add(7,'days');//this .add method will take two input. the first tells from which no. to increas and the 2nd which is a string tells what to increase.
+import {getDeliveryOption} from '../../data/delivery-options.js';
+import { renderPaymentSummary } from './paymentSummary.js';
+// const today = dayjs();//this will give an object which contains today's date.
+// const deliveryDate = today.add(7,'days');//this .add method will take two input. the first tells from which no. to increas and the 2nd which is a string tells what to increase.
 //console.log(deliveryDate);//this will print an object which will have the day after 7 place from today ex(today = sunday then the output will be sunday as today is included.)
-console.log(deliveryDate.format('dddd, MMMM D'));//the format is specified in the documentation. dddd will tell days name(full) then MMMM ( months full name) then D (1-31);
+// console.log(deliveryDate.format('dddd, MMMM D'));//the format is specified in the documentation. dddd will tell days name(full) then MMMM ( months full name) then D (1-31);
 
 export function renderOrderSummary(){
 let cartSummaryHTML = '';
@@ -111,6 +112,8 @@ document.querySelectorAll('.js-delete-link')
 
      const container = document.querySelector(`.js-cart-item-container-${productId}`);
      container.remove();
+
+     renderPaymentSummary();
     });
   });
 
@@ -119,6 +122,7 @@ document.querySelectorAll('.js-delete-link')
       const {productId,deliveryOptionId} = element.dataset;
       updateDeliveryOption(productId,deliveryOptionId);
       renderOrderSummary();
+      renderPaymentSummary();
     });
   });
 }
