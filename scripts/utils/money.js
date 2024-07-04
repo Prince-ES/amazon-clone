@@ -1,5 +1,5 @@
 export function formatCurrency (priceCents) {
-  return (Math.round(priceCents) / 100).toFixed(2);  
+  return (Math.round(priceCents) / 100).toFixed(2);  //rounds 0.5 to 1 and rest of the normal.
 }
 
 export default formatCurrency;//to get more detail about syntax, check checkout.js
