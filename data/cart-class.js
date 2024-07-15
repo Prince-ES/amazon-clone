@@ -1,17 +1,18 @@
 class Cart {//every object we generate will have these property
   cartItems;
 
-  localStorageKey;
+  #localStorageKey;//we use hash to make a variable private property. or private feild.
+
   constructor(localStorageKey){// when we generate an object, it'll run this automatically. and this is better place for setup code.the method name is not userdefined and we also can't return anything from this method. the parameter this get will get stored in the above localStorage variable see just above line. and later this will be also used by other function
-    this.localStorageKey = localStorageKey;//cart which was an instance is changed to this because each instance we generate will have it's own name and not cart always.
+    this.#localStorageKey = localStorageKey;//cart which was an instance is changed to this because each instance we generate will have it's own name and not cart always.// the hash is making it private property.
     // businessCart.localStorageKey = 'cart-business';//each object we clreate from this class will run this constructor so we don't need this as we're already using cart instance.
 
-    this.loadFromStorage();
+    this.#loadFromStorage();
     // businessCart.loadFromStorage();
   }
 
-  loadFromStorage() {
-    this.cartItems =JSON.parse(localStorage.getItem(this.localStorageKey)) || [{//we might change object's name in future and if we acces cart.cartItem then it'll not work anymore to avoid this and access property from another property inside object use "this" feature. this will allow us to use a propety inside object from another property inside same object.
+  #loadFromStorage() {//the load from storage is only needed inside the class as the setup code that loads is inside this class. and we don't want someone else to load somethig else in localStorage. so we'll make is private method.
+    this.cartItems =JSON.parse(localStorage.getItem(this.#localStorageKey)) || [{//we might change object's name in future and if we acces cart.cartItem then it'll not work anymore to avoid this and access property from another property inside object use "this" feature. this will allow us to use a propety inside object from another property inside same object.
       productId:'e43638ce-6aa0-4b85-b27f-e1d07eb678c6',
       quantity:2,
       deliveryOptionId:'1'
@@ -23,7 +24,7 @@ class Cart {//every object we generate will have these property
   }
 
   saveToStorage() {
-    localStorage.setItem(this.localStorageKey, JSON.stringify(this.cartItems));
+    localStorage.setItem(this.#localStorageKey, JSON.stringify(this.cartItems));
   }
 
   addToCart (productId) {
@@ -151,6 +152,11 @@ const businessCart = new Cart('cart-business');//assigning class to variable and
 // cart.loadFromStorage();
 // businessCart.loadFromStorage();
 
+// cart.localStoragekey = 'aaa'; //now all the objects will save the data in this key. means anyone can change the values which can effect our code. here comes "private methods of classes". private = it can only be accessed inside the class. so we'll make the localStorageKey private.
+
+//after using private property for localStorageKey lets check what happens if we access the private property outside.
+// cart.#localStorageKey = 'test';
+//we can also have private methods.
 console.log(cart);
 console.log(businessCart);
 
