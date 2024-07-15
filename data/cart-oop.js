@@ -1,4 +1,4 @@
-function Cart(localStorageKey) {//in object oriented programming, use pascalcase(similar to camelcase but first letter also capital) ex HappyBirthday.
+function Cart(localStorageKey) {//in object oriented programming, use pascalcase(similar to camelcase but first letter also capital ex HappyBirthday) to generate objects;
   const cart = {
     cartItems:undefined,
     loadFromStorage() {
