@@ -1,3 +1,5 @@
+import {formatCurrency} from '../scripts/utils/money.js'
+
 export function getProduct(productId){
   let matchingProduct;
 
@@ -7,6 +9,32 @@ export function getProduct(productId){
     }
   });
   return matchingProduct;
+}
+
+class Product{
+  
+  id;
+  image;
+  name;
+  rating;
+  priceCents;
+  
+  constructor(productDetails) {
+    this.id = productDetails.id;
+    this.image = productDetails.image;
+    this.name = productDetails.name;
+    this.rating = productDetails.rating;
+    this.priceCents = productDetails.priceCents;
+    
+  }
+
+  getStarsUrl (){
+    return`images/ratings/rating-${(this.rating.stars)*10}.png`;
+  }
+
+  getPrice(){
+   return `$${formatCurrency(this.priceCents)}`;
+  }
 }
 
 export const products = [
@@ -668,4 +696,6 @@ export const products = [
       "mens"
     ]
   }
-];
+].map((productDetails)=>{//runs the function for each values. this method returns a new array and whatever we return from this function its gonna inside new array. the new array will be assigned to this products
+  return new Product(productDetails);//each index will have a class and that class will contain all the properties. when we create an instance we do the same. so at each index we'll have different instance. 
+});
