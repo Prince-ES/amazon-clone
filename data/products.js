@@ -55,6 +55,39 @@ class Clothing extends Product{//some products like clothing may have extra prop
     }
   }
 
+  // const date = new Date();//inbuilt class.//we have used dayjs method which indirectly used this date class. but we don't use this directly as dayjs gives us a lot of extra features.
+  // console.log(date);
+  // console.log(date.toLocaleTimeString());//gives us the current time.
+
+
+  // console.log(this);// we're using this outside of any object therefore there is no object for "this" to point to. hence it'll print undefined. originally in js "this" was equal to window but when they released js modules, inside a module, this = undefined.
+
+  // //creating a new object to learn more about "this";
+  // const object2 = {
+  //   a: 2,
+  //   b: this.a//previously when we were using "this" then we were using it inside an instance or class but here the object has not been created yet so "this doesn't hasanything to point to so undefined and accessing it will give error."
+  // }
+
+
+  // //"this" inside function:-
+  // function logThis(param1){
+  //   console.log(this);//this will print undefined but inside function, we can change "this" to whatever we want. to do that  function have a method ".call()"
+  // }
+
+  // logThis();
+  // logThis.call('hello', param1);//this does the same thing as above but we can pass whatever value to "this"; the first parameter will be the value of "this". the rest parameters also can be passed.
+
+  // //arrow functions do not change the value of "this":-
+  // this
+  // const object3 = {
+  //   metohd: ()=>{
+  //     console.log(this);//this will have the same value as outside the function.
+  //   }
+  // }
+  // object3.metohd();
+
+  // //checkout 19:27:00 for better understanding.
+
 export const products = [
   {
     id: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
