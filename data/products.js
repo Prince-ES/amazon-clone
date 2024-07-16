@@ -35,7 +35,25 @@ class Product{
   getPrice(){
    return `$${formatCurrency(this.priceCents)}`;
   }
+
+  extraInfoHTML (){
+    return '';
+  }
 }
+
+class Clothing extends Product{//some products like clothing may have extra properties like sizecharts so a seperate class is made for it. also instead of copying all the code (id,image,price etc) we'll use a new feature of oop that is "extends" this will give the properties of the given class and also what you make new properties in this class.
+    sizeChartLink;
+    constructor(productDetails){//if we dont create the constructor, it'll run the constructor of parent class that why when the class was empty we were still able to access it.
+      super(productDetails);//this will call the parent constructor as we need it's properties.
+      this.sizeChartLink = productDetails.sizeChartLink;
+    }
+
+    extraInfoHTML (){//as this class is an extend to Product class, this method is also created in parent class and hence this class is inheriting the method. but as this function also initialized same function this is called method overriding. or replace the parent's method.
+      // super.extraInfoHTML();
+      return `
+      <a href="${this.sizeChartLink}" target ="blank">Size chart</a>`;
+    }
+  }
 
 export const products = [
   {
@@ -697,5 +715,8 @@ export const products = [
     ]
   }
 ].map((productDetails)=>{//runs the function for each values. this method returns a new array and whatever we return from this function its gonna inside new array. the new array will be assigned to this products
+  if(productDetails.type == 'clothing'){
+    return new Clothing(productDetails);
+  }
   return new Product(productDetails);//each index will have a class and that class will contain all the properties. when we create an instance we do the same. so at each index we'll have different instance. 
-});
+});//by default it'll use Product class to generate instance but for specific types like clothing we want it to create object with "clothing" class. so we can check the "type" property of using if statement and work accordingly.

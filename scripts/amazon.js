@@ -45,6 +45,8 @@ products.forEach((product) => {
         </select>
       </div>
 
+      ${product.extraInfoHTML()};<!--this is called polymorphism when we use method without knowing the class. this is also replacing an if statement. where we could check if the product is instance(object) of clothing. if it is then we can provide the link in the <a></a> html element else we can just render empty strings. -->
+
       <div class="product-spacer"></div>
 
       <div class="added-to-cart">
