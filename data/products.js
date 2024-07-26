@@ -68,6 +68,13 @@ class Clothing extends Product{//some products like clothing may have extra prop
   //   b: this.a//previously when we were using "this" then we were using it inside an instance or class but here the object has not been created yet so "this doesn't hasanything to point to so undefined and accessing it will give error."
   // }
 
+// // now this will not give an error because the object is assigned first to the variable and then later function is called. but in arrow function this doesn't occurs see below.
+// const object2 = {
+//   op(){
+//     console.log(this);
+//   }
+// }
+// object2.op();
 
   // //"this" inside function:-
   // function logThis(param1){
@@ -86,7 +93,31 @@ class Clothing extends Product{//some products like clothing may have extra prop
   // }
   // object3.metohd();
 
-  // //checkout 19:27:00 for better understanding.
+  //when we console.log (this) inside foreach loop then for each valuse as we know it'll run the function and here this will point to function and inside funtion "this" is undefined.
+
+  // const object5 = {
+  //   method(){
+  //     console.log(this);
+
+  //     [1,2,3].forEach(()=>{//as we know in arrow function the value of "this" will be same as it's value outside. and we also know that in foreach function "this" points to the function and inside function "this" is undefined. here we're calling the arrow function inside foreach so it'll give the value of this that is outside and outside foreach loop there is method where the value of this is that object so we'll get the object.
+  //       console.log(this);
+  //     })
+  //   }
+  // };
+
+  // const object5 = {
+  //   method(){
+  //     console.log(this);
+  
+  //     [1,2,3].forEach(function op(){// as usual console.log(this) above the foreach loop will point to the object. as there is an object to point to just outside.//as we discussed above that inside a function "this" points to undefined as there is no object to point to.
+  //       console.log(this);
+  //     })
+  //   }
+  // }; 
+  
+  // object5.method();
+
+  // //checkout 19:23:00 or a bit ahead for better understanding.
 
 export const products = [
   {
