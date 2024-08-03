@@ -1,5 +1,5 @@
 import {cart,removeFromCart,updateDeliveryOption} from '../../data/cart.js';
-import {products,getProduct} from '../../data/products.js';
+import {getProduct} from '../../data/products.js';
 import { formatCurrency } from '../utils/money.js';
 
 import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js';//another syntax for exporting(while exporting the from the site, they have used this syntax for exporting so we also have to import from same syntax. their way of exporting: export default dayjs;. we can use it when we only want to export 1 thing. only one default export can be done from a file.
@@ -39,7 +39,7 @@ cart.forEach((cartItem)=>{
             ${matchingProduct.name}
           </div>
           <div class="product-price">
-            ${matchingProduct.getPrice()})}
+            ${matchingProduct.getPrice()}
           </div>
           <div class="product-quantity js-product-quantity-${productId}">
             <span>

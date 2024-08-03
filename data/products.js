@@ -119,6 +119,32 @@ class Clothing extends Product{//some products like clothing may have extra prop
 
   // //checkout 19:23:00 or a bit ahead for better understanding.
 
+  export let products = [];
+
+  export function loadProducts(fun){
+   const xhr = new XMLHttpRequest();
+
+   xhr.addEventListener('load',()=>{//inside: the url path with "products" will return a JSON string containing all the products. we'll JSON.parse them first and them map the array as we were doing before. therefore products array will contain instances(objects) from different classes. 
+      products = JSON.parse(xhr.response).map((productDetails)=>{//runs the function for each values. this method returns a new array and whatever we return from this function its gonna inside new array. the new array will be assigned to this products
+        if(productDetails.type == 'clothing'){
+          return new Clothing(productDetails);
+        }
+        return new Product(productDetails);//each index will have a class and that class will contain all the properties. when we create an instance we do the same. so at each index we'll have different instance. 
+      });//from .map till here is copied from below.
+      console.log(products);
+      fun();
+   });
+
+   
+   xhr.open('GET','https://supersimplebackend.dev/products');
+   xhr.send();
+
+   return products;
+  }
+
+  loadProducts();
+
+  /*
 export const products = [
   {
     id: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
@@ -784,3 +810,4 @@ export const products = [
   }
   return new Product(productDetails);//each index will have a class and that class will contain all the properties. when we create an instance we do the same. so at each index we'll have different instance. 
 });//by default it'll use Product class to generate instance but for specific types like clothing we want it to create object with "clothing" class. so we can check the "type" property of using if statement and work accordingly.
+*/
