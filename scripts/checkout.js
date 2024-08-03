@@ -1,6 +1,6 @@
 import { renderOrderSummary } from './checkout/orderSummary.js';
 import { renderPaymentSummary } from './checkout/paymentSummary.js';
-import {loadProducts} from '../data/products.js';
+import {loadProducts, loadProductsFetch} from '../data/products.js';
 import { loadCart } from '../data/cart.js';
 
 //import '../data/cart-oop.js';//this will run all the code in that file.
@@ -78,6 +78,22 @@ Promise.all([
   })
 
 ]).then((values)=>{//this "values" parameter contains params from all the above promises which have passed some value in resolve.
+  console.log(values);
+  renderOrderSummary();
+  renderPaymentSummary();
+});
+
+
+//************ after fetch  above code (promise.all) can be replaced by following code.***** 
+
+Promise.all([
+  loadProductsFetch(),
+  new Promise((resolve)=>{//this remained same because we didn't use fetch for cart
+    loadCart(()=>{
+      resolve();
+    });
+  })
+]).then((values)=>{
   console.log(values);
   renderOrderSummary();
   renderPaymentSummary();

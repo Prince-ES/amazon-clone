@@ -814,3 +814,30 @@ export const products = [
   return new Product(productDetails);//each index will have a class and that class will contain all the properties. when we create an instance we do the same. so at each index we'll have different instance. 
 });//by default it'll use Product class to generate instance but for specific types like clothing we want it to create object with "clothing" class. so we can check the "type" property of using if statement and work accordingly.
 */
+
+// *********** fetch() **************
+//so far we were using XMLHttp to make http request to backend and this uses callbacks (callback means running a function in future and we needed to do that in addEventListener in order to get response.). fetch also lets us make requests to the backend butfetch uses a Promise.
+export function loadProductsFetch(){
+ const promise = fetch('https://supersimplebackend.dev/products'
+ ).then((response)=>{
+   return response.json()//response.json is actually asynchronous. it returns a promise so we need to that promise to finish. before we continue to next step.
+ }).then((productsData)=>{//when response.json will be done it'll return the data we need and then it'll save the inside this param(inside.then's function)
+    // console.log(productsData);//now as we have the products data lets do what we were doing before.
+    products = productsData.map((productDetails)=>{
+      if(productDetails.type == 'clothing'){
+        return new Clothing(productDetails);
+      }
+      return new Product(productDetails); 
+    });
+    console.log('loadProducts');    
+ });//by default fetch will make GET request to the backend we just need to give it url where we want to go to. This will create a promise and we'll asign the next step using .then; the fetch also saves response and the response can be used in .then function.
+ //it'll return a bunch of data like status and other things which we don't need. therefore to get the data attached to this we'll use response.JSON
+
+ return promise;
+}
+
+/*
+loadProductsFetch().then(()=>{
+  console.log('next step');
+});
+*/
