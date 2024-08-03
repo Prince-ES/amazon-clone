@@ -131,7 +131,7 @@ class Clothing extends Product{//some products like clothing may have extra prop
         }
         return new Product(productDetails);//each index will have a class and that class will contain all the properties. when we create an instance we do the same. so at each index we'll have different instance. 
       });//from .map till here is copied from below.
-      console.log(fun);
+      console.log('loadProducts');
       if(typeof fun === 'function'){
         fun();
       }else{
@@ -144,7 +144,7 @@ class Clothing extends Product{//some products like clothing may have extra prop
    xhr.open('GET','https://supersimplebackend.dev/products');
    xhr.send();
 
-   return products;
+  //  return products;
   }
 
   /*

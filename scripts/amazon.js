@@ -7,7 +7,11 @@ import { formatCurrency } from './utils/money.js';//in modules if we have to go 
 
 
 
-loadProducts(renderProductsGrid);//as we know about the asynchronour behaivour of sending request to backend, when this page loads it was just calling the loadProducts function and moving to next line of code and hence our product array is empty when we access it. so after calling the function we've to wait for the response. so we'll put the below code in renderProductsGrid and pass it as a parameter and call it when the response is received by us. if we think of just putting the loadProducts function inside the addEventListener, that'll not work as the load product is not returning anything. //we need products and inside this function the GET request is sent.
+new Promise((resolve)=>{
+  loadProducts(()=>{
+    resolve();
+  });
+}).then(()=>{renderProductsGrid()})//as we know about the asynchronour behaivour of sending request to backend, when this page loads it was just calling the loadProducts function and moving to next line of code and hence our product array is empty when we access it. so after calling the function we've to wait for the response. so we'll put the below code in renderProductsGrid and pass it as a parameter and call it when the response is received by us. if we think of just putting the loadProducts function inside the addEventListener, that'll not work as the load product is not returning anything. //we need products and inside this function the GET request is sent.
 
 function renderProductsGrid(){
   let productsHTML = '';

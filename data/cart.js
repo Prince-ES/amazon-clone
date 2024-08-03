@@ -63,3 +63,18 @@ export function updateDeliveryOption(productId,deliveryOptionId) {
   saveToStorage();
 }
 
+export function loadCart(fun){
+  const xhr = new XMLHttpRequest();
+
+  xhr.addEventListener('load',()=>{//inside: the url path with "products" will return a JSON string containing all the products. we'll JSON.parse them first and them map the array as we were doing before. therefore products array will contain instances(objects) from different classes. 
+     console.log(xhr.response);   
+     fun();
+  });
+
+  
+  xhr.open('GET','https://supersimplebackend.dev/cart');
+  xhr.send();
+
+ //  return products;
+ }
+
