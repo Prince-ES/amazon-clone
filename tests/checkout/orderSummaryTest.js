@@ -1,12 +1,19 @@
 import { renderOrderSummary } from "../../scripts/checkout/orderSummary.js";
 import { loadFromStorage,cart } from "../../data/cart.js";
+import { loadProducts} from '../../data/products.js';
 
-
-describe('test suite: renderOrderSummary',()=>{
-
-  
+describe('test suite: renderOrderSummary',()=>{  
   const productId1='e43638ce-6aa0-4b85-b27f-e1d07eb678c6';
   const productId2 = '15b6fc6f-327a-4ec4-896f-486349e85a3d';
+
+  beforeAll((done)=>{
+    loadProducts(()=>{
+      done();
+    });//when this will get called it'll send request to backend but will not wait for the response and move to rest of the code and unfortunately the product array is not loaded when it's accessed. For this jasmine has a seperate function called "done()" function. we'll pass the done parameter and the code will run the code inside function and until the done function is not called, it'll not move to next code.
+    
+    // loadProducts(renderOrderSummary);//this will not work
+  });
+
   beforeEach(()=>{//this is called a beforeEach hook, and it'll run this funciton before each of our test.
     spyOn(localStorage,'setItem');
     document.querySelector('.js-test-container').innerHTML = `

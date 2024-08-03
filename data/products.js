@@ -131,8 +131,13 @@ class Clothing extends Product{//some products like clothing may have extra prop
         }
         return new Product(productDetails);//each index will have a class and that class will contain all the properties. when we create an instance we do the same. so at each index we'll have different instance. 
       });//from .map till here is copied from below.
-      console.log(products);
-      fun();
+      console.log(fun);
+      if(typeof fun === 'function'){
+        fun();
+      }else{
+        console.error('The argument passed is not a function: ',typeof fun);
+      }
+      
    });
 
    
@@ -141,8 +146,6 @@ class Clothing extends Product{//some products like clothing may have extra prop
 
    return products;
   }
-
-  loadProducts();
 
   /*
 export const products = [
