@@ -64,7 +64,7 @@ new Promise((resolve)=>{
 //so even though promises require a bunch of setup code we can see that it keeps our code relatively flatter.
 
 //we can also run multiple promises at the same time using   "Promise.all()" and wait for all of them to finish. above code is the same but all the promise were handled seperately.
-
+/*
 Promise.all([
   new Promise((resolve)=>{
     loadProducts(()=>{
@@ -82,10 +82,11 @@ Promise.all([
   renderOrderSummary();
   renderPaymentSummary();
 });
+*/
 
 
 //************ after fetch  above code (promise.all) can be replaced by following code.***** 
-
+/*
 Promise.all([
   loadProductsFetch(),
   new Promise((resolve)=>{//this remained same because we didn't use fetch for cart
@@ -98,5 +99,28 @@ Promise.all([
   renderOrderSummary();
   renderPaymentSummary();
 });
+*/
+
+async function loadPage() {//async make a function return a promise. the reason we use synch is that it lets us use second function "await". await lets us wait for a promise to finish, before going to the next line.
+// we can only use await when we're insidean async function
+  await loadProductsFetch();//.then(()=>{//initially we were using .then to go to next step due to the feature of promise that promise makes the code in branch and runs them side by side. so this await will not allow this and move to next step after this is complete.
+
+  // })
+  await new Promise((resolve)=>{//this remained same because we didn't use fetch for cart
+    loadCart(()=>{
+      resolve();
+    });
+  });//initially we were using .then to go to next step due to the feature of promise that promise makes the code in branch and runs them side by side. so this await will not allow this and move to next step after this is complete.
+  
+  renderOrderSummary();
+  renderPaymentSummary();
+
+  // return 'value2';//if we return something this gets converted to resolve('value2')
+}
+
+loadPage();//.then((value)=>{
+//   console.log('nextStep');
+//   console.log(value);
+// });
 
 
