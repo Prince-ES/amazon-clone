@@ -103,14 +103,22 @@ Promise.all([
 
 async function loadPage() {//async make a function return a promise. the reason we use synch is that it lets us use second function "await". await lets us wait for a promise to finish, before going to the next line.
 // we can only use await when we're insidean async function
-  await loadProductsFetch();//.then(()=>{//initially we were using .then to go to next step due to the feature of promise that promise makes the code in branch and runs them side by side. so this await will not allow this and move to next step after this is complete.
 
-  // })
-  await new Promise((resolve)=>{//this remained same because we didn't use fetch for cart
-    loadCart(()=>{
-      resolve();
-    });
-  });//initially we were using .then to go to next step due to the feature of promise that promise makes the code in branch and runs them side by side. so this await will not allow this and move to next step after this is complete.
+  try{//the code that can cause error will be putted inside.
+    await loadProductsFetch();//.then(()=>{//initially we were using .then to go to next step due to the feature of promise that promise makes the code in branch and runs them side by side. so this await will not allow this and move to next step after this is complete.//try catch also can be used in normal code.
+
+    // })
+    const value =  await new Promise((resolve, reject)=>{//this remained same because we didn't use fetch for cart.
+      //throw'errrorr2';//manually creating error in promises. when we use await, instead of going to .catch(method to handle error in promises) it'll go to the catch below(try/catch's catch).//if we need to create an error in future then we need different code. for ex:-
+      loadCart(()=>{//this function runs in future. inside this function throw doesn't work. because throw doesn't work in future. so when we create a new promise it gives us a second parameter called reject(see besides resolve,); so here after we load the cart lets create an error using reject;
+        //reject('error3');//till before everything will work fine but this will give error.
+        resolve();
+      });
+    });//initially we were using .then to go to next step due to the feature of promise that promise makes the code in branch and runs them side by side. so this await will not allow this and move to next step after this is complete.
+    
+  } catch(error){//the parameter contains info about the error.
+    console.log('unexpected error. Please try again later');
+  }
   
   renderOrderSummary();
   renderPaymentSummary();
@@ -123,4 +131,18 @@ loadPage();//.then((value)=>{
 //   console.log(value);
 // });
 
+
+
+// try{//if something in here gets error the catch construct will be printed. therefore meaning 'next line' will not be printed. as the function doens't exist. means whenever it gets error it'll skip the rest of the code.
+//   throw 'errrorrr1';//manually created error. check line 143(nearby if not found). the value we given will get stored in the catch's parameter and can be used later.
+//   console.log('hello');//this will be printed.
+//   doesNotExist();
+//   console.log('next line');//this will not.
+// }catch(error){
+//   console.log('error!');
+// }
+
+//why don't we use try catch everywhere? because it's meant to handle unexpected errors.(code is correct but something outside our control caused error.)
+
+//we can also manually create errors using "throw" that we'll catch later. we need to give it a value(string, num, object)
 

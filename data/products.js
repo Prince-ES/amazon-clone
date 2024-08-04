@@ -122,7 +122,7 @@ class Clothing extends Product{//some products like clothing may have extra prop
   export let products = [];
 
   export function loadProducts(fun){
-   const xhr = new XMLHttpRequest();
+   const xhr = new XMLHttpRequest();//created anew instance of XMLHttpRequest object, stored in the variable xhr.
 
    xhr.addEventListener('load',()=>{//inside: the url path with "products" will return a JSON string containing all the products. we'll JSON.parse them first and them map the array as we were doing before. therefore products array will contain instances(objects) from different classes. 
       products = JSON.parse(xhr.response).map((productDetails)=>{//runs the function for each values. this method returns a new array and whatever we return from this function its gonna inside new array. the new array will be assigned to this products
@@ -140,9 +140,13 @@ class Clothing extends Product{//some products like clothing may have extra prop
       
    });
 
+   xhr.addEventListener('error',()=>{
+    console.log('UnexpectedError, Please try again later.');
+   })
+
    
    xhr.open('GET','https://supersimplebackend.dev/products');
-   xhr.send();
+   xhr.send();//if the url is correct the request will be successful and hence it'll trigger the load evenListener. else if the url if incorrect or there is an error that failed the request then it'll run trigger the error eventListener.
 
   //  return products;
   }
@@ -818,6 +822,7 @@ export const products = [
 // *********** fetch() **************
 //so far we were using XMLHttp to make http request to backend and this uses callbacks (callback means running a function in future and we needed to do that in addEventListener in order to get response.). fetch also lets us make requests to the backend butfetch uses a Promise.
 export function loadProductsFetch(){
+ // let x = console.log('hello'); when the function is run this will print hello even without console.log(x); similarly the error message will be console.logged and other messages even if they're assigned to a vairble.
  const promise = fetch('https://supersimplebackend.dev/products'
  ).then((response)=>{
    return response.json()//response.json is actually asynchronous. it returns a promise so we need to that promise to finish. before we continue to next step.
@@ -830,14 +835,21 @@ export function loadProductsFetch(){
       return new Product(productDetails); 
     });
     console.log('loadProducts');    
+ }).catch((error)=>{//if the request has an error its gonna go to thiscatch method;//just like in callbacks this we can pass a error parameter defining the error.
+   console.log('UnexpectedError, Please try again later.');
  });//by default fetch will make GET request to the backend we just need to give it url where we want to go to. This will create a promise and we'll asign the next step using .then; the fetch also saves response and the response can be used in .then function.
  //it'll return a bunch of data like status and other things which we don't need. therefore to get the data attached to this we'll use response.JSON
 
  return promise;
 }
 
+
+
 /*
 loadProductsFetch().then(()=>{
   console.log('next step');
 });
 */
+
+// let x = console.log('hello');
+// console.log(x);
